@@ -1,0 +1,177 @@
+---
+openapi: 3.0.2
+info:
+  title: proveedor-api
+  version: 1.0.0
+  description: proveedor
+  contact:
+    name: drivas
+    email: drivas@drivas.com
+  license:
+    name: GNU AGPLv3
+    url: https://www.gnu.org/licenses/agpl.txt
+servers:
+- url: "localhost: 8080"
+  description: 'servidor '
+paths:
+  /proveedor:
+    summary: Path used to manage the list of proveedors.
+    description: "\"The REST endpoint/path used to list and create zero or more `proveedor`\\\
+      \r\n      \\ entities.  This path contains a `GET` and `POST` operation to perform\
+      \ the\\\r\n      \\ list and create tasks, respectively.\""
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/proveedor'
+              examples:
+                proveedor:
+                  value:
+                  - codigoProveedor: some text
+                    descripcion: some text
+                    precioCosto: 91
+                    precioVenta: 19
+                    foto: some text
+                  - codigoProveedor: some text
+                    descripcion: some text
+                    precioCosto: 41
+                    precioVenta: 62
+                    foto: some text
+          description: Successful response - returns an array of `proveedor` entities.
+      operationId: getproveedors
+      summary: List All proveedors
+      description: Gets a list of all `proveedor` entities.
+    post:
+      requestBody:
+        description: ' A new `proveedor` to be created.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/proveedor'
+            examples:
+              proveedor:
+                value:
+                  codigoProveedor: some text
+                  descripcion: some text
+                  precioCosto: 88
+                  precioVenta: 1
+                  foto: some text
+        required: true
+      responses:
+        "201":
+          description: "description: Successful response."
+      operationId: createproveedor
+      summary: Create a proveedor
+      description: Creates a new instance of a `proveedor`.
+  /proveedors/{proveedorId}:
+    summary: Path used to manage a single proveedor.
+    description: "Path used to manage a single proveedor.\r\n    description: \"The\
+      \ REST endpoint/path used to get, update, and delete single instances\\\r\n\
+      \      \\ of an `proveedor`.  This path contains `GET`, `PUT`, and `DELETE`\
+      \ operations\\\r\n      \\ used to perform the get, update, and delete tasks,\
+      \ respectively.\""
+    get:
+      parameters:
+      - name: proveedorId
+        description: A unique identifier for a `proveedor`.
+        schema:
+          type: string
+        in: path
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/proveedor'
+              examples:
+                proveedor:
+                  value:
+                    codigoProveedor: some text
+                    descripcion: some text
+                    precioCosto: 35
+                    precioVenta: 99
+                    foto: some text
+          description: Successful response - returns a single `proveedor`.
+      operationId: getproveedor
+      summary: Get a proveedor
+      description: Gets the details of a single instance of a `proveedor`.
+    put:
+      requestBody:
+        description: Updated `proveedor` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/proveedor'
+            examples:
+              proveedor:
+                value:
+                  codigoProveedor: some text
+                  descripcion: some text
+                  precioCosto: 81
+                  precioVenta: 5
+                  foto: some text
+        required: true
+      parameters:
+      - name: proveedorId
+        description: updateproveedor
+        schema:
+          type: string
+        in: path
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateproveedor
+      summary: Update a proveedor
+      description: ' Updates an existing `proveedor`.'
+    delete:
+      parameters:
+      - name: proveedorId
+        description: A unique identifier for a `proveedor`.
+        schema:
+          type: string
+        in: path
+        required: true
+      responses:
+        "204":
+          description: "description: Successful response."
+      operationId: deleteproveedor
+      summary: Delete a proveedor
+      description: Deletes an existing `proveedor`.
+    parameters:
+    - name: proveedorId
+      description: A unique identifier for a `proveedor`.
+      schema:
+        type: string
+      in: path
+      required: true
+components:
+  schemas:
+    proveedor:
+      title: Root Type for proveedor
+      description: 'un proveedor            '
+      type: object
+      properties:
+        codigoProveedor:
+          type: string
+        descripcion:
+          type: string
+        precioCosto:
+          format: int32
+          type: integer
+        precioVenta:
+          format: int32
+          type: integer
+        foto:
+          type: string
+      example:
+        codigoProveedor: sample
+        descripcion: sample
+        precioCosto: 0
+        precioVenta: 0
+        foto: sample
